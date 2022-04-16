@@ -1,0 +1,4 @@
+{
+    "weatherKey":   "YOUR OPEN WEATHER KEY HERE",
+    "giphyKey":     "YOUR GIPHY API KEY HERE"
+}
