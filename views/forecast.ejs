@@ -7,16 +7,70 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><% locals.weather.main || 'Location'%> Forecast</title>
+        <title><%= locals.name || 'Unknown'%> Forecast</title>
         <meta name="description" content="weather app">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="container">this shows info for the location</div>
-        
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div id="nav-container">
+				<h3>Weather Search</h3>
+				<form id="search" class="d-flex" method="get" onsubmit="handleForm(event);">
+					<input id="location" class="form-control me-sm-2" type="text" placeholder="City, town, etc.">
+					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+
+		<div id="weather-container" class="card">
+			<h4 class="card-header">Current weather in <%= locals.name + ", " + locals.sys.country + " as of " + locals.dt || 'Unknown'%></h4>
+
+			<p id="real-temp" class="card-title"><%= locals.main.temp || 'Unknown'%>°</p>
+
+			<p id="weather-description"><%= locals.weather[0].main || 'Unknown'%>, <%= locals.weather[0].description || 'Unknown'%></p>
+
+			<table class="table table-hover">
+				<tr>
+					<td>Feels like</td>
+					<td><%= locals.main.feels_like || 'na'%>°</td>
+				</tr>
+				<tr>
+					<td>High/Low</td>
+					<td><%= locals.main.temp_max || 'na'%>°/<%= locals.main.temp_min || 'na'%>°</td>
+				</tr>
+				<tr>
+					<td>Pressure</td>
+					<td><%= locals.main.pressure || 'na'%> mb</td>
+				</tr>
+				<tr>
+					<td>Humidity</td>
+					<td><%= locals.main.humidity || 'na'%> %</td>
+				</tr>
+			</table>
+			<table class="table table-hover">
+				<tr>
+					<td>Wind</td>
+					<td><%= locals.wind.speed || 'na'%> km/h</td>
+				</tr>
+				<tr>
+					<td>Visibility</td>
+					<td><%= locals.visibility || 'na'%> m</td>
+				</tr>
+				<tr>
+					<td>Sunrise</td>
+					<td><%= locals.sys.sunrise || 'na'%></td>
+				</tr>
+				<tr>
+					<td>Sunset</td>
+					<td><%= locals.sys.sunset || 'na'%></td>
+				</tr>
+			</table>
+		</div>
+		<script src="script.js" defer></script>
     </body>
 </html>

@@ -10,13 +10,49 @@
         <title>Weather App</title>
         <meta name="description" content="weather app">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="container">this will be the home page</div>
+        <main>
+            <h1>Weather Search</h1>
+            <div class="card" id="search-container">
+                <div class="card-body">
+                    <form id="search" method="get" onsubmit="handleForm(event);">
+                        <div id="search-contents" class="input-group mb-3">
+                            <input id="location" type="text" class="form-control" placeholder="City, town, etc." aria-label="Location" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
         
     </body>
+    <script>
+        function handleForm(e) {
+            const form = document.getElementById('search');
+            const searchBar = document.getElementById('location');
+            const location = searchBar.value.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
+            searchBar.classList.add("has-danger");
+
+            if (location == "") {
+                e.preventDefault();
+                const searchContents = document.getElementById('search-contents');
+                if (searchContents.childElementCount < 3) {
+                    const feedback = document.createElement('div');
+                    feedback.classList.add('invalid-feedback');
+                    feedback.textContent = 'Try inputting a location first';
+                    searchContents.appendChild(feedback);
+                }
+                return;
+            }
+
+            form.action = `weather/${ location }`;
+            form.submit();
+        }
+    </script>
 </html>

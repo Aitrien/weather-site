@@ -6,19 +6,24 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	//res.render('index');
-	res.send("default weather page");
+router.use(express.static('public'));
+
+// As weather is currently the only option, redirect to home page
+router.get('/', (req, res, next) => {
+	//res.send("default weather page");
+	res.redirect('/');
+	next();
 });
 
 router.get('/:location', (req, res) => {
 	getWeather(req.params.location)
 	.then(response => {
 		if (response.cod === 200) {
-			res.json(response);
-
+			// Location searched exists, render forecast html
+			res.render('forecast', response);
 		}	else {
-			res.send("unknown location")
+			// Location searched does not exist, render unknown html (to be implemented)
+			res.send(`Unknown location: ${ req.params.location }`);
 		}
 	});
 });

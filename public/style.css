@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::selection {
+	background: rgb(235,100,160);
+}
+
+html, main, body {
+	background-color: rgba(161, 180, 178, 0);
+}
+
+.navbar {
+	align-items: center;
+	justify-content: center;
+}
+
+#nav-container {
+	display: flex;
+	justify-content: space-between;
+	max-width: 1000px;
+	width: 100%;
+}
+
+#nav-container h3 {
+	margin: 5px;
+}
+
+.navbar button {
+	margin-right: 0px;
+}
+
+main {
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    min-height: 80vh;
+	margin-top: 20vh;
+}
+
+h1 {
+	padding-bottom: 50px;
+}
+
+#search-container {
+	max-width: 1000px;
+	width: 100%;
+}
+
+.invalid-feedback {
+	margin-left: 20px;
+	color: white;
+	display: block;
+}
+
+#weather-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	margin: 20px auto;
+	max-width: 1000px;
+	width: 100%;
+}
+
+#weather-container p {
+	margin-left: 20px;
+	width: 100%;
+}
+
+#weather-container h4 {
+	width: 100%;
+}
+
+#real-temp {
+	font-size: 75px;
+	margin-bottom: 0;
+}
+
+#weather-container table {
+	width: calc(50% - 30px);
+}
+
+table td:nth-child(2) { 
+	text-align: end; 
+}
