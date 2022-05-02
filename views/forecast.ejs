@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><%= locals.name || 'Unknown'%> Forecast</title>
+        <title>Weather in <%= locals.location || 'Unknown'%></title>
         <meta name="description" content="weather app">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="bootstrap.min.css">
@@ -28,46 +28,68 @@
 		</nav>
 
 		<div id="weather-container" class="card">
-			<h4 class="card-header">Current weather in <%= locals.name + ", " + locals.sys.country + " as of " + locals.dt || 'Unknown'%></h4>
+			<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time || 'Unknown' %></span></h4>
 
-			<p id="real-temp" class="card-title"><%= locals.main.temp || 'Unknown'%>°</p>
+			<div class="content-wrapper">
+				<p id="real-temp" class="card-title"><%= locals.temp || 'Unknown'%></p>
 
-			<p id="weather-description"><%= locals.weather[0].main || 'Unknown'%>, <%= locals.weather[0].description || 'Unknown'%></p>
+				<p id="weather-description"><%= locals.weather || 'Unknown'%>, <%= locals.description || 'Unknown'%></p>
 
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="celsius-btn" autocomplete="off" onclick="swapCelsius();">
+					<label class="btn btn-outline-primary" for="celsius-btn">°C</label>
+					<input type="radio" class="btn-check" name="btnradio" id="fahrenheit-btn" autocomplete="off" onclick="swapFahrenheit();">
+					<label class="btn btn-outline-primary" for="fahrenheit-btn">°F</label>
+				</div>
+			</div>
+
+			<div class="content-wrapper">
+
+			</div>
+			
 			<table class="table table-hover">
 				<tr>
+					<td>🌬️</td>
 					<td>Feels like</td>
-					<td><%= locals.main.feels_like || 'na'%>°</td>
+					<td id="display-feels"><%= locals.temp_feels || 'na' %></td>
 				</tr>
 				<tr>
+					<td>🌡️</td>
 					<td>High/Low</td>
-					<td><%= locals.main.temp_max || 'na'%>°/<%= locals.main.temp_min || 'na'%>°</td>
+					<td id="display-highlow"><%= locals.temp_high || 'na' %>/<%= locals.temp_low || 'na'%></td>
 				</tr>
 				<tr>
+					<td>♨️</td>
 					<td>Pressure</td>
-					<td><%= locals.main.pressure || 'na'%> mb</td>
+					<td><%= locals.pressure || 'na' %> mb</td>
 				</tr>
 				<tr>
+					<td>💧</td>
 					<td>Humidity</td>
-					<td><%= locals.main.humidity || 'na'%> %</td>
+					<td><%= locals.humidity || 'na' %> %</td>
 				</tr>
 			</table>
-			<table class="table table-hover">
+
+			<table id="test" class="table table-hover">
 				<tr>
+					<td>💨</td>
 					<td>Wind</td>
-					<td><%= locals.wind.speed || 'na'%> km/h</td>
+					<td id="display-wind"><%= locals.wind_speed || 'na' %></td>
 				</tr>
 				<tr>
+					<td>👁️</td>
 					<td>Visibility</td>
-					<td><%= locals.visibility || 'na'%> m</td>
+					<td id="display-visibility"><%= locals.visibility || 'na' %></td>
 				</tr>
 				<tr>
+					<td>🌅</td>
 					<td>Sunrise</td>
-					<td><%= locals.sys.sunrise || 'na'%></td>
+					<td><%= locals.time_sunrise || 'na' %></td>
 				</tr>
 				<tr>
+					<td>🌇</td>
 					<td>Sunset</td>
-					<td><%= locals.sys.sunset || 'na'%></td>
+					<td><%= locals.time_sunset || 'na' %></td>
 				</tr>
 			</table>
 		</div>
