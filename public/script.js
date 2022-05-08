@@ -74,20 +74,13 @@ function loadPreference() {
 function handleForm(e) {
 	const form = document.getElementById('search');
 	const searchBar = document.getElementById('location');
+	// remove any additional spaces from the input
 	const location = searchBar.value.replace(/^\s+|\s+$|\s+(?=\s)/g, "");
-
+	// return if the search bar is empty
 	if (location == "") {
 		e.preventDefault();
-		const searchContents = document.getElementById('search-contents');
-		if (searchContents.childElementCount < 3) {
-			const feedback = document.createElement('div');
-			feedback.classList.add('invalid-feedback');
-			feedback.textContent = 'Try inputting a location first';
-			searchContents.appendChild(feedback);
-		}
 		return;
 	}
-
 	form.action = location;
 	form.submit();
 }

@@ -34,7 +34,7 @@
 		</nav>
 		<main>
 			<div id="weather-container" class="card">
-				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time || 'Unknown' %></span></h4>
+				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time + " local time." || 'Unknown' %></span></h4>
 
 				<div class="content-wrapper">
 					<p id="real-temp" class="card-title"><%= locals.temp || 'Unknown'%></p>
@@ -98,6 +98,44 @@
 						<td><%= locals.timeSunset || 'na' %></td>
 					</tr>
 				</table>
+			</div>
+
+			<div id="forecast-container">
+				<div class="card text-white bg-secondary mb-3" style="width: 11.5rem;">
+					<div class="card-header">Tomorrow</div>
+					<div class="card-body">
+						<h4 class="card-title">17 c</h4>
+						<img src="<%= `http://openweathermap.org/img/wn/${ locals.weatherIcon }@2x.png` || '' %>">
+					</div>
+				</div>
+				<div class="card text-white bg-secondary mb-3" style="width: 11.5rem;">
+					<div class="card-header">Tomorrow</div>
+					<div class="card-body">
+						<h4 class="card-title">17 c</h4>
+						<img src="<%= `http://openweathermap.org/img/wn/${ locals.weatherIcon }@2x.png` || '' %>">
+					</div>
+				</div>
+				<div class="card text-white bg-secondary mb-3" style="width: 11rem;">
+					<div class="card-header">Tomorrow</div>
+					<div class="card-body">
+						<h4 class="card-title">17 c</h4>
+						<img src="<%= `http://openweathermap.org/img/wn/${ locals.weatherIcon }@2x.png` || '' %>">
+					</div>
+				</div>
+				<div class="card text-white bg-secondary mb-3" style="width: 11.5rem;">
+					<div class="card-header">Tomorrow</div>
+					<div class="card-body">
+						<h4 class="card-title">17 c</h4>
+						<img src="<%= `http://openweathermap.org/img/wn/${ locals.weatherIcon }@2x.png` || '' %>">
+					</div>
+				</div>
+				<div class="card text-white bg-secondary mb-3" style="width: 11.5rem;">
+					<div class="card-header">Tomorrow</div>
+					<div class="card-body">
+						<h4 class="card-title">17 c</h4>
+						<img src="<%= `http://openweathermap.org/img/wn/${ locals.weatherIcon }@2x.png` || '' %>">
+					</div>
+				</div>
 			</div>
 			
 		</main>

@@ -7,8 +7,28 @@
 	background: rgb(235,100,160);
 }
 
-html, main, body {
-	background-color: rgba(181, 200, 199, 0);
+main {
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+	height: 100%;
+    min-height: calc(100vh - 2rem - 50px);
+}
+
+h1 {
+	margin-top: calc(2rem + 50px);
+	padding: 20vh 0 50px 0;
+}
+
+#search-container {
+	max-width: 1000px;
+	width: 100%;
+}
+
+.invalid-feedback {
+	margin-left: 20px;
+	color: white;
+	display: block;
 }
 
 .navbar {
@@ -25,6 +45,10 @@ html, main, body {
 	width: 100%;
 }
 
+#nav-container a {
+	text-decoration: none;
+}
+
 #nav-container h3 {
 	margin: auto 0 auto 5px;
 }
@@ -38,36 +62,18 @@ html, main, body {
 	margin-right: 0px;
 }
 
-main {
-    display: flex;
-	flex-direction: column;
-    align-items: center;
-    min-height: 80vh;
-	margin-top: 20vh;
-}
 
-h1 {
-	padding-bottom: 50px;
-}
-
-#search-container {
-	max-width: 1000px;
-	width: 100%;
-}
-
-.invalid-feedback {
-	margin-left: 20px;
-	color: white;
-	display: block;
-}
-
-#weather-container {
+#weather-container, #forecast-container {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
-	margin: 20px auto;
+	margin: 20px auto 0 auto;
 	max-width: 1000px;
 	width: 100%;
+}
+
+#forecast-container {
+	justify-content: space-between;
 }
 
 #weather-container h4 {
@@ -77,6 +83,11 @@ h1 {
 .content-wrapper {
 	width: calc(50% - 30px);
 	min-width: 300px;
+}
+
+.content-wrapper img {
+	display: block;
+	margin: auto;
 }
 
 #weather-container p {
