@@ -72,10 +72,6 @@ h1 {
 	width: 100%;
 }
 
-#forecast-container {
-	justify-content: space-between;
-}
-
 #weather-container h4 {
 	width: 100%;
 }
@@ -126,4 +122,8 @@ table td:nth-child(1) {
 
 table td:nth-child(3) { 
 	text-align: end; 
+}
+
+#forecast-container {
+	justify-content: space-between;
 }

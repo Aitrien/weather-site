@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Unknown Location</title>
+        <meta name="description" content="weather app">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="<%= `http://openweathermap.org/img/wn/50d.png` || '#' %>">
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div id="nav-container">
+				<a href="/"><h3>Weather Search</h3></a>
+				<form id="search" class="d-flex" method="get" onsubmit="handleForm(event);">
+					<input id="location" class="form-control me-sm-2" type="text" placeholder="City, town, etc.">
+					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+		<main>
+			
+			<h1>404</h1>
+			<p><%= locals.location %> wasn't found.</p>
+			<a href="/">Return to home?</a>
+
+		</main>
+		<script src="script.js" defer></script>
+    </body>
+</html>

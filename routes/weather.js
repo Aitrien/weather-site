@@ -18,15 +18,17 @@ router.get('/', (req, res, next) => {
 router.get('/:location', (req, res) => {
 	getWeather(req.params.location)
 	.then(response => {
-		if (response.cod === 200) {
-			// res.json(response);
-			// Location searched exists, render forecast html
-			//res.render('forecast', response);
+		//res.json(response);
+		
+		if (response.cod == 200) {
+			// Location searched exists, render forecast page
+			
 			res.render('forecast', 
 				{	
 					location : response.name,
 					country : response.sys.country,
-					time : new Date((response.dt) * 1000).toLocaleString(),
+					time : new Date((response.dt + response.timezone_offset) * 1000).toUTCString().split("GMT")[0],
+					time_offset : response.timezone_offset,
 					temp : response.main.temp,
 					weather : response.weather[0].main,
 					description : response.weather[0].description,
@@ -40,24 +42,44 @@ router.get('/:location', (req, res) => {
 					windSpeed : response.wind.speed,
 					windDir : response.wind.deg,
 					visibility : response.visibility,
-					timeSunrise : new Date(response.sys.sunrise * 1000).toLocaleTimeString(),
-					timeSunset : new Date(response.sys.sunset * 1000).toLocaleTimeString(),
+					timeSunrise : new Date((response.sys.sunrise + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
+					timeSunset : new Date((response.sys.sunset + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
+					forecasts: response.daily
 				});
+		} else if (response.cod == 404) {
+			// Location not in database, render 404 page
+			res.render('notfound', { location: req.params.location });
 		}	else {
-			// Location searched does not exist, render unknown html (to be implemented)
-			res.send(`Unknown location: ${ req.params.location }, CODE: ${ response.cod }`);
+			// Display response code and message
+			res.send(`error: ${ response.cod }, ${ response.message }`);
 		}
 	});
 });
 
-// Makes an API call to the OpenWeather API for a given location
+// Make an API call to the OpenWeather API for a given location
 async function getWeather(location) {
+	// get current weather
 	const fetchString = `http://api.openweathermap.org/data/2.5/weather?q=${ location }&appid=${ config['weatherKey'] }`;
-	const response = await fetch(fetchString, {
+	const currentResponse = await fetch(fetchString, {
 		mode: 'cors'
 	});
-	const weatherData = await response.json();
-	return weatherData;
+	const weatherData = await currentResponse.json();
+
+	let forecastData = {};
+	if (weatherData.cod == 200) {
+		// get five-day forecast
+		const excluded = "current,minutely,hourly";
+		const forecastString = `http://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ config['weatherKey'] }`;
+		const forecastResponse = await fetch(forecastString, {
+			mode: 'cors'
+		});
+		forecastData = await forecastResponse.json();
+	}
+	
+	// combine current with forecast
+	const result = Object.assign({}, weatherData, forecastData);
+
+	return result;
 }
 
 // Returns a different rgba colour for the webpage depending on the weather type
@@ -69,7 +91,7 @@ function getBackgroundStyle(weatherType) {
 			style = 'rgba(165, 165, 215, 0.8)';
 			break;
 		case "Clouds":
-			style = 'rgba(125, 125, 125, 0.8)';
+			style = 'rgba(155, 155, 155, 0.8)';
 			break;
 		case "Rain":
 			style = 'rgba(50, 105, 120, 0.8)';
@@ -85,11 +107,18 @@ function getBackgroundStyle(weatherType) {
 			break;
 		default:
 			// Other weather eg. haze, fog, tornado, etc.
-			style = 'rgba(185, 135, 85, 0.2)';
+			style = 'rgba(185, 135, 115, 0.7)';
 			break;
 	}
 
 	return style
+}
+
+// Processes the JSON data obtained in a clean object for displaying forecast data
+function getForecastObject(rawObject) {
+	/*	day - today/tomorrow/Xday
+			high/low in kelvin
+	*/
 }
 
 

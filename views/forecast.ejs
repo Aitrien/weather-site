@@ -34,7 +34,7 @@
 		</nav>
 		<main>
 			<div id="weather-container" class="card">
-				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time || 'Unknown' %></span></h4>
+				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time + " local time." || 'Unknown' %></span></h4>
 
 				<div class="content-wrapper">
 					<p id="real-temp" class="card-title"><%= locals.temp || 'Unknown'%></p>
@@ -100,6 +100,21 @@
 				</table>
 			</div>
 			
+			<div id="forecast-container">
+				<% for(let i=0; i < 5; i++) { %>
+					<div class="card text-white bg-secondary mb-3" style="width: 11.5rem;">
+						<div class="card-header">
+							<%= (i === 0) ? "Today" : (i === 1) ? "Tomorrow" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date((locals.forecasts[i].dt + locals.time_offset) * 1000).getUTCDay()] || "na" %>
+						</div>
+						<div class="card-body">
+							<h4 class="card-title"><%= locals.forecasts[i].temp.max %>/<%= locals.forecasts[i].temp.min %></h4>
+							<p><%= locals.forecasts[i].weather[0].main %></p>
+							<img src="<%= `http://openweathermap.org/img/wn/${ locals.forecasts[i].weather[0].icon }@2x.png` %>">
+						</div>
+					</div>
+				<% } %>
+			</div>
+
 		</main>
 		<script src="script.js" defer></script>
     </body>

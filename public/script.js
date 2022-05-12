@@ -46,7 +46,7 @@ function swapFahrenheit() {
 	feelsDisplay.textContent = `${ Math.round(rawData["rawFeels"] * tempFactor - tempOffset) }°${ degreeSymbol }`;
 	highLowDisplay.textContent = `${ Math.round(rawData["rawHighLow"][0] * tempFactor - tempOffset) }°/${ Math.round(rawData["rawHighLow"][1] * tempFactor - tempOffset) }°${ degreeSymbol }`;
 	windDisplay.textContent = `${ (rawData["rawWind"] * 0.6213712).toPrecision(3) } mph`;
-	visibDisplay.textContent = `${ (rawData["rawVisib"] * 0.6213712 / 1000).toPrecision(3) } miles`;
+	visibDisplay.textContent = `${ (Math.min(6, rawData["rawVisib"] * 0.6213712 / 1000)).toPrecision(3) } miles`;
 	localStorage.setItem("tempPref", "fahrenheit");
 	updateTemp();
 }
