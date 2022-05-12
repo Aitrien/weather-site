@@ -39,13 +39,13 @@ router.get('/:location', (req, res) => {
 					tempLow : response.main.temp_min,
 					pressure : response.main.pressure,
 					humidity : response.main.humidity,
-					windSpeed : response.wind.speed,
+					windSpeed : response.wind.speed, // FIXME: when this is zero, displays "na"
 					windDir : response.wind.deg,
 					visibility : response.visibility,
 					timeSunrise : new Date((response.sys.sunrise + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
 					timeSunset : new Date((response.sys.sunset + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
 					forecasts : response.daily,
-					weatherWarnings : null ? ( response.alerts !== undefined ) : response.alerts
+					weatherWarnings : response.alerts
 				});
 		} else if (response.cod == 404) {
 			// Location not in database, render 404 page
@@ -75,7 +75,6 @@ async function getWeather(location) {
 			mode: 'cors'
 		});
 		forecastData = await forecastResponse.json();
-		// console.log(forecastData);
 	}
 	// combine current with forecast
 	const result = Object.assign({}, weatherData, forecastData);

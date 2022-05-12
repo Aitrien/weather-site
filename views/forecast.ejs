@@ -33,6 +33,19 @@
 			</div>
 		</nav>
 		<main>
+			<% if (locals.weatherWarnings !== undefined) { %>
+				<div id="weather-warning" class="alert alert-dismissible alert-warning">
+					<button type="button" class="btn-close" data-bs-dismiss="alert" onclick="removeWarning();"></button>
+					<h4 class="alert-heading">
+						Warning! <%= locals.weatherWarnings[0].event %><br>
+						<span class="lead">
+							From <%= new Date((locals.weatherWarnings[0].start + locals.time_offset) * 1000).toUTCString().split("GMT")[0] %><br>
+							to <%= new Date((locals.weatherWarnings[0].end + locals.time_offset) * 1000).toUTCString().split("GMT")[0] %>
+						</span>
+					</h4>
+					<p class="mb-0"><%= locals.weatherWarnings[0].description %></p>
+				  </div>
+			<% } else {}%>
 			<div id="weather-container" class="card">
 				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time + " local time." || 'Unknown' %></span></h4>
 

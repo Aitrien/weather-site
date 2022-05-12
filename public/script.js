@@ -93,3 +93,11 @@ function handleForm(e) {
 	form.action = location;
 	form.submit();
 }
+
+// Removes warning if one exists
+function removeWarning() {
+	const warning = document.getElementById('weather-warning');
+	if (warning !== null) {
+		warning.remove();
+	}
+}

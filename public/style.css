@@ -62,14 +62,16 @@ h1 {
 	margin-right: 0px;
 }
 
+#weather-warning, #weather-container, #forecast-container {
+	margin: 20px auto 0 auto;
+	max-width: 1000px;
+	width: 100%;
+}
 
 #weather-container, #forecast-container {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
-	margin: 20px auto 0 auto;
-	max-width: 1000px;
-	width: 100%;
 }
 
 #weather-container h4 {
