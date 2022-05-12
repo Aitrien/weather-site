@@ -127,3 +127,28 @@ table td:nth-child(3) {
 #forecast-container {
 	justify-content: space-between;
 }
+
+#forecast-container .card, #forecast-container .card-body {
+	text-align: center;
+}
+
+@media screen and (max-width: 57.5rem) {
+	#forecast-container {
+		flex-direction: column;
+	}
+
+	#forecast-container .card {
+		min-width: 100%;
+	}
+
+	.forecast-item {
+		flex-basis: 100%;
+	}
+
+	#forecast-container .card-body {
+		display: flex;
+		flex-flow: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+}

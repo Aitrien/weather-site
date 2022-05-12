@@ -42,9 +42,9 @@
 					<p id="weather-description"><%= locals.weather || 'Unknown'%>, <%= locals.description || 'Unknown'%></p>
 
 					<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-						<input type="radio" class="btn-check" name="btnradio" id="celsius-btn" autocomplete="off" onclick="swapCelsius();">
+						<input type="radio" class="btn-check" name="btnradio" id="celsius-btn" autocomplete="off" onclick="swapMetric();">
 						<label class="btn btn-outline-primary" for="celsius-btn">°C</label>
-						<input type="radio" class="btn-check" name="btnradio" id="fahrenheit-btn" autocomplete="off" onclick="swapFahrenheit();">
+						<input type="radio" class="btn-check" name="btnradio" id="fahrenheit-btn" autocomplete="off" onclick="swapImperial();">
 						<label class="btn btn-outline-primary" for="fahrenheit-btn">°F</label>
 					</div>
 				</div>
@@ -107,9 +107,9 @@
 							<%= (i === 0) ? "Today" : (i === 1) ? "Tomorrow" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date((locals.forecasts[i].dt + locals.time_offset) * 1000).getUTCDay()] || "na" %>
 						</div>
 						<div class="card-body">
-							<h4 class="card-title"><%= locals.forecasts[i].temp.max %>/<%= locals.forecasts[i].temp.min %></h4>
-							<p><%= locals.forecasts[i].weather[0].main %></p>
-							<img src="<%= `http://openweathermap.org/img/wn/${ locals.forecasts[i].weather[0].icon }@2x.png` %>">
+							<div class="forecast-item"><img src="<%= `http://openweathermap.org/img/wn/${ locals.forecasts[i].weather[0].icon }@2x.png` %>"></div>
+							<h4 class="card-title forecast-temp forecast-item"><span><%= locals.forecasts[i].temp.max %></span> <span class="text-muted"><%= locals.forecasts[i].temp.min %></span></h4>
+							<p class="forecast-item"><%= locals.forecasts[i].weather[0].main %></p>
 						</div>
 					</div>
 				<% } %>
