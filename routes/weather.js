@@ -1,5 +1,5 @@
-// config file
-const config = require('../config.json');
+// config file, replaced with ENV variable for deployment
+// const config = require('../config.json');
 // node-fetch
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -60,7 +60,7 @@ router.get('/:location', (req, res) => {
 // Make an API call to the OpenWeather API for a given location
 async function getWeather(location) {
 	// get current weather
-	const fetchString = `http://api.openweathermap.org/data/2.5/weather?q=${ location }&appid=${ config['weatherKey'] }`;
+	const fetchString = `https://api.openweathermap.org/data/2.5/weather?q=${ location }&appid=${ ENV['WEATHER_KEY'] }`;
 	const currentResponse = await fetch(fetchString, {
 		mode: 'cors'
 	});
@@ -70,7 +70,7 @@ async function getWeather(location) {
 	if (weatherData.cod == 200) {
 		// get five-day forecast
 		const excluded = "current,minutely,hourly";
-		const forecastString = `http://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ config['weatherKey'] }`;
+		const forecastString = `https://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ config['weatherKey'] }`;
 		const forecastResponse = await fetch(forecastString, {
 			mode: 'cors'
 		});

@@ -73,7 +73,7 @@ function loadPreference() {
 			fahrenheitBtn.checked = true;
 			swapImperial();
 			break;
-		case null:
+		default:
 			celsiusBtn.checked = true;
 			localStorage.setItem("tempPref", "celsius");
 			swapCelsius();
