@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
 const weatherRouter = require('./routes/weather')
 app.use('/weather', weatherRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`App is now listening`);
 });
