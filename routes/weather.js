@@ -60,7 +60,7 @@ router.get('/:location', (req, res) => {
 // Make an API call to the OpenWeather API for a given location
 async function getWeather(location) {
 	// get current weather
-	const fetchString = `https://api.openweathermap.org/data/2.5/weather?q=${ location }&appid=${ ENV['WEATHER_KEY'] }`;
+	const fetchString = `https://api.openweathermap.org/data/2.5/weather?q=${ location }&appid=${ process.env.WEATHER_KEY }`;
 	const currentResponse = await fetch(fetchString, {
 		mode: 'cors'
 	});
