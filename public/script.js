@@ -76,7 +76,8 @@ function loadPreference() {
 		default:
 			celsiusBtn.checked = true;
 			localStorage.setItem("tempPref", "celsius");
-			swapCelsius();
+			//swapCelsius();
+			celsiusBtn.click();
 	}
 }
 
