@@ -70,7 +70,7 @@ async function getWeather(location) {
 	if (weatherData.cod == 200) {
 		// get five-day forecast
 		const excluded = "current,minutely,hourly";
-		const forecastString = `https://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ config['weatherKey'] }`;
+		const forecastString = `https://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ process.env.WEATHER_KEY }`;
 		const forecastResponse = await fetch(forecastString, {
 			mode: 'cors'
 		});
