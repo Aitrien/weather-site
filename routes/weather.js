@@ -40,7 +40,7 @@ router.get('/:location', (req, res) => {
 					pressure : response.main.pressure,
 					humidity : response.main.humidity,
 					windSpeed : response.wind.speed, // FIXME: when this is zero, displays "na"
-					windDir : response.wind.deg,
+					windDir : getWindDirection(response.wind.deg),
 					visibility : response.visibility,
 					timeSunrise : new Date((response.sys.sunrise + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
 					timeSunset : new Date((response.sys.sunset + response.timezone_offset) * 1000).toUTCString().split(" ")[4],
@@ -114,12 +114,19 @@ function getBackgroundStyle(weatherType) {
 	return style
 }
 
-// Processes the JSON data obtained in a clean object for displaying forecast data
-function getForecastObject(rawObject) {
-	/*	day - today/tomorrow/Xday
-			high/low in kelvin
-	*/
+function getWindDirection(angle) {
+	const winds = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+	return winds[Math.floor((angle + 45 / 2) % 360 / 45)];
 }
+
+/* Converts a country code (eg. NZ) into the unicode value of the corresponding country flag 
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char =>  127397 + char.charCodeAt());
+  return String.fromCodePoint(...codePoints);
+}*/
 
 
 module.exports = router;

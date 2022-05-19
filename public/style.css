@@ -134,17 +134,36 @@ table td:nth-child(3) {
 	text-align: center;
 }
 
-@media screen and (max-width: 57.5rem) {
+@media screen and (max-width: 59rem) {
+	.navbar {
+		padding: 16px 10px;
+	}
+
+	.btn-secondary {
+		width: 80px;
+		padding: 13px 14px;
+	}
+	
+	main {
+		padding: 0 10px;
+	}
+
 	#forecast-container {
 		flex-direction: column;
+		margin-top: 32px;
 	}
 
 	#forecast-container .card {
+		height: 100px;
 		min-width: 100%;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.forecast-item {
 		flex-basis: 100%;
+		margin: auto 0;
 	}
 
 	#forecast-container .card-body {
@@ -152,5 +171,12 @@ table td:nth-child(3) {
 		flex-flow: row;
 		justify-content: space-around;
 		align-items: center;
+		max-width: 65%;
+		padding: 0;
+	}
+
+	#forecast-container .card-header {
+		border: none;
+		width: 35%;
 	}
 }

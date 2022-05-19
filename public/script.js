@@ -15,7 +15,8 @@ const rawData = {
 	"rawTemp" : tempDisplay.textContent,
 	"rawFeels" : feelsDisplay.textContent,
 	"rawHighLow" : highLowDisplay.textContent.split("/"),
-	"rawWind" : windDisplay.textContent,
+	"rawWindSpeed" : windDisplay.textContent.split(" ")[0],
+	"rawWindDir" : windDisplay.textContent.split(" ")[1],
 	"rawVisib" : visibDisplay.textContent,
 	"rawForecasts" : Array.from(forecasts, raw => [raw.childNodes[0].textContent, raw.childNodes[2].textContent])
 }
@@ -44,7 +45,7 @@ function swapMetric() {
 	degreeSymbol = "C";
 	feelsDisplay.textContent = `${ Math.round(rawData["rawFeels"] * tempFactor - tempOffset) }°${ degreeSymbol }`;
 	highLowDisplay.textContent = `${ Math.round(rawData["rawHighLow"][0] * tempFactor - tempOffset) }°/${ Math.round(rawData["rawHighLow"][1] * tempFactor - tempOffset) }°${ degreeSymbol }`;
-	windDisplay.textContent = `${ rawData["rawWind"] } km/h`;
+	windDisplay.textContent = `${ rawData["rawWindSpeed"] } km/h ${ rawData["rawWindDir"] }`;
 	visibDisplay.textContent = `${ (rawData["rawVisib"] / 1000).toPrecision(3) } km`;
 	localStorage.setItem("tempPref", "celsius");
 	updateTemp();
@@ -54,7 +55,7 @@ function swapImperial() {
 	tempFactor = 1.8;
 	tempOffset = 459.67;
 	degreeSymbol = "F";
-	windDisplay.textContent = `${ (rawData["rawWind"] * 0.6213712).toPrecision(3) } mph`;
+	windDisplay.textContent = `${ (rawData["rawWindSpeed"] * 0.6213712).toPrecision(3) } mph ${ rawData["rawWindDir"] }`;
 	visibDisplay.textContent = `${ (Math.min(6, rawData["rawVisib"] * 0.6213712 / 1000)).toPrecision(3) } miles`;
 	localStorage.setItem("tempPref", "fahrenheit");
 	updateTemp();

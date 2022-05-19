@@ -3,3 +3,6 @@ config.json
 
 # node modules
 node_modules
+
+# showcase images
+images

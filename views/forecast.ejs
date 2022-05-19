@@ -44,7 +44,7 @@
 						</span>
 					</h4>
 					<p class="mb-0"><%= locals.weatherWarnings[0].description %></p>
-				  </div>
+				</div>
 			<% } else {}%>
 			<div id="weather-container" class="card">
 				<h4 id="weather-display" class="card-header">Current weather in <%= locals.location + ", " + locals.country || 'Unknown' %> <span class="lead"><%= " as of " + locals.time + " local time." || 'Unknown' %></span></h4>
@@ -93,7 +93,7 @@
 					<tr>
 						<td>💨</td>
 						<td>Wind</td>
-						<td id="display-wind"><%= locals.windSpeed || 'na' %></td>
+						<td id="display-wind"><%= locals.windSpeed || 'na' %> <%= locals.windDir || 'na' %></td>
 					</tr>
 					<tr>
 						<td>👁️</td>
@@ -120,8 +120,8 @@
 							<%= (i === 0) ? "Today" : (i === 1) ? "Tomorrow" : ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date((locals.forecasts[i].dt + locals.time_offset) * 1000).getUTCDay()] || "na" %>
 						</div>
 						<div class="card-body">
-							<div class="forecast-item"><img src="<%= `http://openweathermap.org/img/wn/${ locals.forecasts[i].weather[0].icon }@2x.png` %>"></div>
 							<h4 class="card-title forecast-temp forecast-item"><span><%= locals.forecasts[i].temp.max %></span> <span class="text-muted"><%= locals.forecasts[i].temp.min %></span></h4>
+							<div class="forecast-item"><img src="<%= `http://openweathermap.org/img/wn/${ locals.forecasts[i].weather[0].icon }@2x.png` %>"></div>
 							<p class="forecast-item"><%= locals.forecasts[i].weather[0].main %></p>
 						</div>
 					</div>
