@@ -1,5 +1,5 @@
 // config file
-const config = require('./config.json');
+//const config = require('./config.json');
 
 // express
 const express = require('express');
