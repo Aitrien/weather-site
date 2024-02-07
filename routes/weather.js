@@ -1,6 +1,7 @@
 // config file, replaced with ENV variable for deployment
 // const config = require('../config.json');
 // node-fetch
+require('dotenv').config();
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const express = require('express');

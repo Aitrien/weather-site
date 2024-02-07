@@ -1,8 +1,6 @@
 # api keys
 config.json
+.env
 
 # node modules
 node_modules
-
-# showcase images
-images
