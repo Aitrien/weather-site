@@ -72,12 +72,18 @@ async function getWeather(location) {
 	let forecastData = {};
 	if (weatherData.cod == 200) {
 		// get five-day forecast
-		const excluded = "current,minutely,hourly";
-		const forecastString = `https://api.openweathermap.org/data/2.5/onecall?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&exclude=${ excluded }&appid=${ theKey }`;
+		const forecastString = `https://api.openweathermap.org/data/2.5/forecast?lat=${ weatherData.coord.lat }&lon=${ weatherData.coord.lon }&appid=${ theKey }`;
 		const forecastResponse = await fetch(forecastString, {
 			mode: 'cors'
 		});
-		forecastData = await forecastResponse.json();
+		const rawForecastData = await forecastResponse.json();
+		
+		// Convert 3-hour forecast to daily format
+		forecastData = {
+			timezone_offset: weatherData.timezone,
+			daily: convertToDailyForecasts(rawForecastData.list),
+			alerts: undefined // Free tier doesn't include alerts
+		};
 	}
 	// combine current with forecast
 	const result = Object.assign({}, weatherData, forecastData);
@@ -130,6 +136,27 @@ function getFlagEmoji(countryCode) {
     .map(char =>  127397 + char.charCodeAt());
   return String.fromCodePoint(...codePoints);
 }*/
+
+// Convert 3-hour forecast data to daily forecasts
+function convertToDailyForecasts(forecastList) {
+    const dailyMap = {};
+    
+    forecastList.forEach(item => {
+        const date = new Date(item.dt * 1000).toDateString();
+        if (!dailyMap[date]) {
+            dailyMap[date] = {
+                dt: item.dt,
+                temp: { min: item.main.temp_min, max: item.main.temp_max },
+                weather: [item.weather[0]]
+            };
+        } else {
+            dailyMap[date].temp.min = Math.min(dailyMap[date].temp.min, item.main.temp_min);
+            dailyMap[date].temp.max = Math.max(dailyMap[date].temp.max, item.main.temp_max);
+        }
+    });
+    
+    return Object.values(dailyMap);
+}
 
 
 module.exports = router;
